@@ -109,7 +109,7 @@ public class UserServiceTests
         
         //act
         var result = userService.AddUser(
-            "Karol",
+            "Maciek",
             "Smith",
             "nowakk@gmail.com",
             DateTime.Parse("2001-01-01"),
