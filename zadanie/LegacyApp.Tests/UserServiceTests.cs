@@ -150,10 +150,10 @@ public class UserServiceTests
         //act
         var result = userService.AddUser(
             "Karol",
-            "Andrzejewicz",
+            "Kowalski",
             "nowakk@gmail.com",
             DateTime.Parse("2001-01-01"),
-            6
+            1
         );
         
         //assert

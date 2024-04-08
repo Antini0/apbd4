@@ -6,15 +6,7 @@ namespace LegacyApp
     {
         public bool AddUser(string firstName, string lastName, string email, DateTime dateOfBirth, int clientId)
         {
-            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
-            {
-                return false;
-            }
-
-            if (!email.Contains("@") && !email.Contains("."))
-            {
-                return false;
-            }
+            if (!checkEmailAndName(firstName, lastName, email)) return false;
 
             var now = DateTime.Now;
             int age = now.Year - dateOfBirth.Year;
@@ -37,6 +29,19 @@ namespace LegacyApp
                 LastName = lastName
             };
 
+            checkClientType(client, user);
+
+            if (user.HasCreditLimit && user.CreditLimit < 500)
+            {
+                return false;
+            }
+
+            UserDataAccess.AddUser(user);
+            return true;
+        }
+
+        public void checkClientType(Client client, User user)
+        {
             if (client.Type == "VeryImportantClient")
             {
                 user.HasCreditLimit = false;
@@ -59,13 +64,20 @@ namespace LegacyApp
                     user.CreditLimit = creditLimit;
                 }
             }
+        }
 
-            if (user.HasCreditLimit && user.CreditLimit < 500)
+        public bool checkEmailAndName(string firstName, string lastName, string email)
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
             {
                 return false;
             }
 
-            UserDataAccess.AddUser(user);
+            if (!email.Contains("@") && !email.Contains("."))
+            {
+                return false;
+            }
+
             return true;
         }
     }
