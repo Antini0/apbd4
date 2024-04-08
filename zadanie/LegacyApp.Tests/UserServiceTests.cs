@@ -86,15 +86,14 @@ public class UserServiceTests
         var userService = new UserService();
         var cr = new ClientRepository();
 
-        cr.GetById(1).Type = "VeryImportantClient";
         
         //act
         var result = userService.AddUser(
             "Karol",
-            "nowak",
+            "Malewski",
             "nowakk@gmail.com",
             DateTime.Parse("2001-01-01"),
-            1
+            2
         );
         
         //assert
